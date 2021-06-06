@@ -37,7 +37,6 @@ jobs:
                     # -- Now you can use the belenios tool runner (its only dependency is the 'libgmp-dev' debian package) :
                     docker exec -it belenios_tool_runtime_build bash -c "belenios-tool --version"
 
-
                     # ---
                     # Now, just like in https://github.com/glondu/belenios/blob/1.13/tests/tool/demo.sh
                     # --
