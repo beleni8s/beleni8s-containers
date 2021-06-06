@@ -30,7 +30,7 @@ jobs:
                     ls -allh
                     cd /tmp/belenios-base-env/
 
-                    cat <<EOF >./build.sh
+                    cat \<<EOF >./build.sh
                     #!/bin/bash
 
                     export BELENIOS_SRC_CODE="/belenios/src_code"
@@ -58,7 +58,7 @@ jobs:
                     chmod +x ./build.sh
 
 
-                    cat <<EOF >./Dockerfile_belenios_builder
+                    cat \<<EOF >./Dockerfile_belenios_builder
                     FROM beleni8s/base-env
 
                     RUN mkdir -p /belenios/src_code
@@ -73,7 +73,7 @@ jobs:
 
                     # --- #
 
-                    cat <<EOF >./docker-compose.belenios.yml
+                    cat \<<EOF >./docker-compose.belenios.yml
                     version: '3.7'
 
                     services:
