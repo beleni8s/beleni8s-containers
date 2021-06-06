@@ -83,6 +83,7 @@ jobs:
                         container_name: belenios_backend_minimal_build
                         build:
                           context: ./
+                          dockerfile: Dockerfile_belenios_builder
                           args:
                             - DEBIAN_BASE_IMAGE_TAG=stretch-slim
                         # ports:
