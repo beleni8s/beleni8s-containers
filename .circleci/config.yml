@@ -38,7 +38,6 @@ jobs:
                     cat $(pwd)/oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh
                     cat $(pwd)/oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh | grep 'sandboxing'
 
-
       - run: # print the name of the branch we're on
           name: "Docker build the belenios-tool"
           no_output_timeout: 30m
