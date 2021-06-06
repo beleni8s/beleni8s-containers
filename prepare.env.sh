@@ -23,7 +23,7 @@ echo "Belenios source code has been git cloned in [${BELENIOS_GIT_CLONE}]"
 # sed -i "s#opam init#opam init --reinit -ni --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
 # sed -i "s#opam init#opam init --reinit -i --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
 # sed -i "s#opam init#echo \$BELENIOS_SYSROOT \&\& opam init --verbose --reinit -i --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
-sed -i "s#opam init#echo \$BELENIOS_SYSROOT \&\& opam init -q --reinit -i --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
+sed -i "s#opam init#echo \"BELENIOS_SYSROOT=[\$BELENIOS_SYSROOT]\" \&\& opam init -q --reinit -i --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
 
 
 # chmod +x *.sh ${PREPARED_DOCKER_CONTEXT}/*.sh

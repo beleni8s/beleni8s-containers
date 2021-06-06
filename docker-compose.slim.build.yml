@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  belenios_backend_minimal:
+    image: quay.io/beleni8s/belenios_backend_minimal:${BELENIOS_CONTAINERS_TAG}
+    # command: --api --docker
+    container_name: belenios_backend_minimal_build
+    build:
+      context: ./oci/builder/platform/minimal
+      args:
+        - DEBIAN_BASE_IMAGE_TAG=$DEBIAN_BASE_IMAGE_TAG
+    # ports:
+      # # only expose https to outside world
+      # - "443:443"   # SSL
+    command: /belenios/build.sh
+    # command: /bin/bash
+    # stdin_open: true
+    # tty: true
+    volumes:
+      - "$PWD/oci/builder/platform/minimal/belenios_sys_root:/belenios/src_code"
+    labels:
+      - "belenios.rocks=true"
+    # depends_on:
+      # - belenios_backend
+    # networks:
+      # belenios_build_net:
+        # aliases:
+          # - web.belenios.io
