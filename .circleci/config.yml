@@ -76,7 +76,8 @@ workflows:
     jobs:
       # - docker_build_and_push_approval:
           # type: approval
-      - docker_build_belenios_tool:
+      - docker_build_belenios_tool
+      # - docker_build_belenios_tool:
           # requires:
             # - docker_build_and_push_approval
           # context: cicd-orchestrator
