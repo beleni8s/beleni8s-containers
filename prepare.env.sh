@@ -20,7 +20,7 @@ git checkout ${BELENIOS_VERSION}
 cd ${OPS_HOME}
 echo "Belenios source code has been git cloned in [${BELENIOS_GIT_CLONE}]"
 # disable sandboxing : otherwise, [opam init] willtry and create a namespace inside containers
-sed -i "s#opam init#opam init --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
+sed -i "s#opam init#opam init --reinit --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
 # chmod +x *.sh ${PREPARED_DOCKER_CONTEXT}/*.sh
 
 
