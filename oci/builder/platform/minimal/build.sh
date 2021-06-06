@@ -2,7 +2,7 @@
 
 export BELENIOS_SRC_CODE="/belenios/src_code"
 cd ${BELENIOS_SRC_CODE}
-
+tree -a |head -n 30
 ./opam-bootstrap.sh
 
 # ---
