@@ -6,10 +6,13 @@ This recipe supports the following belenios versions :
 * In (a shell session and in) an empty directory, run :
 
 ```bash
-export FEATURE_ALIAS="belenios-1.13-build"
+export FEATURE_ALIAS="circleci-pipeline"
+export DESIRED_VERSION="0.0.2"
 export DESIRED_VERSION="feature/${FEATURE_ALIAS}"
 
 export BELENIOS_OCI_LIBRARY=git@github.com:pegasus-io/belenios-containers.git
+export BELENIOS_OCI_LIBRARY=git@github.com:beleni8s/beleni8s-containers.git
+https://github.com/beleni8s/beleni8s-containers
 
 git clone ${BELENIOS_OCI_LIBRARY} .
 
