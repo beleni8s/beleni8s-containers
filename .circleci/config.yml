@@ -22,6 +22,7 @@ jobs:
                     git clone https://github.com/glondu/belenios /tmp/belenios-base-env/
                     cd /tmp/belenios-base-env/
                     git checkout 1.13
+                    git checkout master
                     docker build -t beleni8s/base-env -f Dockerfile_base_environment .
       - run:
           name: "Prepare Build Belenios builder from base [Dockerfile_base_environment] docker image - Belenios version 1.13"
