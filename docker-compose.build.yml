@@ -12,7 +12,7 @@ version: '3.7'
 
 services:
   belenios_frontend:
-    image: quay.io/pegasusio/belenios_frontend:v1.7
+    image: quay.io/beleni8s/belenios_frontend:v1.7
     # command: --api --docker
     container_name: belenios_frontend
     build:
@@ -37,7 +37,7 @@ services:
         # aliases:
           # - web.belenios.io
   belenios_backend_minimal:
-    image: quay.io/pegasusio/belenios_backend_minimal:${BELENIOS_CONTAINERS_TAG}
+    image: quay.io/beleni8s/belenios_backend_minimal:${BELENIOS_CONTAINERS_TAG}
     # command: --api --docker
     container_name: belenios_backend_minimal_build
     build:
@@ -62,7 +62,7 @@ services:
         # aliases:
           # - web.belenios.io
   belenios_unit_tests:
-    image: quay.io/pegasusio/belenios_unit_tests:${BELENIOS_CONTAINERS_TAG}
+    image: quay.io/beleni8s/belenios_unit_tests:${BELENIOS_CONTAINERS_TAG}
     # command: --api --docker
     container_name: belenios_backend_unit_tests
     build:
@@ -88,7 +88,7 @@ services:
           # - web.belenios.io
 
   belenios_backend_release_server:
-    image: quay.io/pegasusio/belenios_backend_release_server:${BELENIOS_CONTAINERS_TAG}
+    image: quay.io/beleni8s/belenios_backend_release_server:${BELENIOS_CONTAINERS_TAG}
     # command: --api --docker
     container_name: belenios_backend_release_server_build
     build:
@@ -114,7 +114,7 @@ services:
           # - web.belenios.io
 
   belenios_docs:
-    image: quay.io/pegasusio/belenios_backend_release_server:${BELENIOS_CONTAINERS_TAG}
+    image: quay.io/beleni8s/belenios_backend_release_server:${BELENIOS_CONTAINERS_TAG}
     # command: --api --docker
     container_name: belenios_docs_build
     build:
@@ -140,7 +140,7 @@ services:
           # - web.belenios.io
 
   belenios_tool_runtime:
-    image: quay.io/pegasusio/belenios_tool_runtime:${BELENIOS_CONTAINERS_TAG}
+    image: quay.io/beleni8s/belenios_tool_runtime:${BELENIOS_CONTAINERS_TAG}
     container_name: belenios_tool_runtime_build
     build:
       context: ./oci/builder/platform/belenios-tool-runner

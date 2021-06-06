@@ -8,7 +8,7 @@ networks:
 
 services:
   belenios_frontend:
-    image: quay.io/pegasusio/:v1.7
+    image: quay.io/beleni8s/belenios_frontend:v1.7
     # command: --api --docker
     container_name: belenios_frontend
     build:
@@ -31,7 +31,7 @@ services:
         aliases:
           - web.belenios.io
   belenios_backend:
-    image: quay.io/pegasusio/:v1.7
+    image: quay.io/beleni8s/belenios_backend:v1.7
     # command: --api --docker
     container_name: belenios_frontend
     build:

@@ -17,7 +17,7 @@ jobs:
           name: "Testing local docker installation"
           command: docker version
       - run: # print the name of the branch we're on
-          name: "Docker build the belenios-tool"
+          name: "Prepare Docker build the belenios-tool"
           command: |
                     pwd
                     ls -allh
@@ -28,7 +28,12 @@ jobs:
 
                     # --------------------
                     ./prepare.env.sh
-
+      - run: # print the name of the branch we're on
+          name: "Docker build the belenios-tool"
+          no_output_timeout: 30m
+          command: |
+                    pwd
+                    ls -allh
                     ./build-belenios-tool-runner.sh
       - run: # print the name of the branch we're on
           name: "Test running the belenios-tool"
