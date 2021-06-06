@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   secrethub: secrethub/cli@1.0.0
 jobs:
-  docker_build_and_push:
+  docker_build_belenios_tool:
     machine:
       image: 'ubuntu-2004:202010-01'    # recommended linux image - includes Ubuntu 16.04, docker 18.09.3, docker-compose 1.23.1
       # resource_class: medium
@@ -69,3 +69,32 @@ jobs:
                     # -- Run the unit tests : a demo voting session will be performed
                     docker-compose -f docker-compose.build.yml up -d belenios_unit_tests
                     docker-compose -f docker-compose.build.yml logs -f belenios_unit_tests
+
+workflows:
+  version: 2.1
+  build_belenios_tool:
+    jobs:
+      # - docker_build_and_push_approval:
+          # type: approval
+      - docker_build_belenios_tool:
+          # requires:
+            # - docker_build_and_push_approval
+          # context: cicd-orchestrator
+          filters:
+            branches:
+              ignore:
+                - master
+                - develop
+                # ---
+                - /^feature\/.*/
+                - /^support\/.*/
+                - /^bugfix\/.*/
+                - /^hotfix\/.*/
+                - /^release\/.*/
+                # ---
+            tags:
+              # only: /^v.*/
+              only:
+                - /^[0-9]+.[0-9]+.[0-9]+/
+                - /^[0-9]+.[0-9]+.[0-9]+-alpha/
+                - /^[0-9]+.[0-9]+.[0-9]+-beta/
