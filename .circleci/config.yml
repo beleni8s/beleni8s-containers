@@ -28,6 +28,17 @@ jobs:
 
                     # --------------------
                     ./prepare.env.sh
+
+      - run: # print the name of the branch we're on
+          name: "Check --disable-sandboxing opam init option in [opam-bootstrap.sh]"
+          command: |
+                    pwd
+                    ls -allh
+
+                    cat ${OPS_HOME}/oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh
+                    cat ${OPS_HOME}/oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh | grep 'sandboxing'
+
+
       - run: # print the name of the branch we're on
           name: "Docker build the belenios-tool"
           no_output_timeout: 30m
