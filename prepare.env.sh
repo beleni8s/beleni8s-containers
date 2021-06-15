@@ -8,7 +8,9 @@ export BELENIOS_GIT_REPO=${BELENIOS_GIT_REPO:-'git@github.com:glondu/belenios.gi
 
 # export BELENIOS_GIT_CLONE=$(mktemp -d -t "belenios_git_clone-XXXXXXXXXX")
 export BELENIOS_GIT_CLONE="${OPS_HOME}/belenios_git_clone_${RANDOM}"
+# export BELENIOS_GIT_CLONE="/tmp/belenios_git_clone"
 
+# this check if "belenios is already git clone" is not useful into a pipeline, I never the less keep it to remain compatible with a local environment and idempotent ops
 export ALREADY_CLONED=$(ls ${OPS_HOME}/belenios_git_clone_*)
 if ! [ "x${ALREADY_CLONED}" == "x" ]; then
   rm -fr belenios_git_clone_*

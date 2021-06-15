@@ -163,6 +163,13 @@ jobs:
                     echo ''
                     echo ''
                     cat -n $(pwd)/oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh | grep 'sandboxing'
+      # ---
+      # cache for the opam-repository which is hugeeee (omg)
+      # ---
+      - restore_cache:
+          keys:
+            - beleni8s-opam-repository-{{ .Branch }}-{{ checksum "oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh" }}
+            - beleni8s-opam-repository
 
       - run: # print the name of the branch we're on
           name: "Docker build the belenios-tool"
@@ -171,6 +178,14 @@ jobs:
                     pwd
                     ls -allh
                     ./build-belenios-tool-runner.sh
+      # ---
+      # cache for the opam-repository which is hugeeee (omg)
+      # ---
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: beleni8s-opam-repository-{{ .Branch }}-{{ checksum "oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh" }}
+          when: always
       - run: # print the name of the branch we're on
           name: "Test running the belenios-tool"
           command: |
