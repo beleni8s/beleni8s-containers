@@ -133,9 +133,17 @@ jobs:
 
                     # --------------------
                     ./prepare.env.sh
+      - run: # print the name of the branch we're on
+          name: "Replace opam-bootstrap.sh with modified one for tests"
+          command: |
+                    echo "Skipped for now"
+                    exit 0
+                    cd /home/circleci/project
+                    pwd
+                    ls -allh
 
       - run: # print the name of the branch we're on
-          name: "Check --disable-sandboxing opam init option in [opam-bootstrap.sh]"
+          name: "Check content of [opam-bootstrap.sh]"
           command: |
                     pwd
                     ls -allh
@@ -144,6 +152,14 @@ jobs:
                     echo ''
                     cat -n $(pwd)/oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh
                     echo ''
+                    echo ''
+                    echo ''
+
+      - run: # print the name of the branch we're on
+          name: "Check --disable-sandboxing opam init option in [opam-bootstrap.sh]"
+          command: |
+                    pwd
+                    ls -allh
                     echo ''
                     echo ''
                     cat -n $(pwd)/oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh | grep 'sandboxing'
