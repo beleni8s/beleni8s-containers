@@ -33,7 +33,43 @@ sed -i "s#cd opam-repository#cd opam-repository \&\& echo \"folder of opam repos
 
 # chmod +x *.sh ${PREPARED_DOCKER_CONTEXT}/*.sh
 
+# --- Insert code for Pipeline chacing of opem repository
+echo "=-= =-= ===================================================== =-= =-="
+echo "=-= =-=  Insert code for Pipeline caching of opam repository  =-= =-="
+echo "=-= =-= ===================================================== =-= =-="
 
+export INSERTION_LINE_NB=$(cat -n ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh | grep 'git clone https://github.com/ocaml/opam-repository.git' | awk '{print $1}')
+
+echo "INSERTION_LINE_NB=[${INSERTION_LINE_NB}]"
+export INSERTION_LINE_NB=$((${INSERTION_LINE_NB} - 1))
+echo "decremented INSERTION_LINE_NB=[${INSERTION_LINE_NB}]"
+
+export TOTAL_LINE_NUMBER=$(cat -n ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh | tail -n 1 | awk '{print $1}')
+echo "TOTAL_LINE_NUMBER=[${TOTAL_LINE_NUMBER}]"
+
+export TAIL_AFTER_INSERTION_LINE_NB=$((${TOTAL_LINE_NUMBER} - (${INSERTION_LINE_NB} + 1)))
+echo "TAIL_AFTER_INSERTION_LINE_NB=[${TAIL_AFTER_INSERTION_LINE_NB}]"
+
+# before insertion
+cat ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh | head -n ${INSERTION_LINE_NB} | tee ./regenerated.opam-bootstrap.sh
+# then insertion
+echo "if [ -d \$(pwd)/opam-repository/ ]; then" | tee -a ./regenerated.opam-bootstrap.sh
+echo "  cd opam-repository/ && git pull" | tee -a ./regenerated.opam-bootstrap.sh
+echo "else" | tee -a ./regenerated.opam-bootstrap.sh
+echo "  git clone https://github.com/ocaml/opam-repository.git" | tee -a ./regenerated.opam-bootstrap.sh
+echo "  cd opam-repository/" | tee -a ./regenerated.opam-bootstrap.sh
+echo "fi;" | tee -a ./regenerated.opam-bootstrap.sh
+# after insertion
+cat ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh | tail -n ${TAIL_AFTER_INSERTION_LINE_NB} | tee -a ./regenerated.opam-bootstrap.sh
+
+echo "=-= =-= ===================================================== =-= =-="
+echo "=-= =-= ===================++++++++++++====================== =-= =-="
+echo "=-= =-= ===================================================== =-= =-="
+
+#
+# ---
+#
+# ---
 # preparing minimal
 export PREPARED_DOCKER_CONTEXT="${OPS_HOME}/oci/builder/platform/minimal"
 

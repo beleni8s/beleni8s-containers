@@ -83,8 +83,15 @@ echo
 echo "=-=-= Initialization of OPAM root =-=-="
 echo
 cd "$BELENIOS_SYSROOT"
-git clone https://github.com/ocaml/opam-repository.git
-cd opam-repository
+
+# opam-repository is cached into the Circle CI pipeline
+if [ -d $(pwd)/opam-repository/ ]; then
+  cd opam-repository/ && git pull
+else
+  git clone https://github.com/ocaml/opam-repository.git
+  cd opam-repository/
+fi;
+
 git reset --hard a0b420b216582d2b186ee1fdd94b3fbad254f243
 opam init $BELENIOS_OPAM_INIT_ARGS --bare --no-setup -k git "$BELENIOS_SYSROOT/opam-repository"
 opam switch create 4.11.2 ocaml-base-compiler.4.11.2 --jobs=1
