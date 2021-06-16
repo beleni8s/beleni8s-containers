@@ -9,7 +9,7 @@ jobs:
       # resource_class: medium
       # docker_layer_caching: true    # default - false # requires a Circle CI plan that includes [Docker layer caching feature]
     environment:
-      DESIRED_DOCKER_TAG: 5.27.1
+      SOME_USEFUL_VAR: 5.27.1
     steps:
       - checkout
       - secrethub/install
