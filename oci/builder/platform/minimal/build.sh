@@ -3,6 +3,8 @@
 export BELENIOS_SRC_CODE="/belenios/src_code"
 cd ${BELENIOS_SRC_CODE}
 tree -a |head -n 30
+
+export BELENIOS_OPAM_INIT_ARGS=${BELENIOS_OPAM_INIT_ARGS:-''}
 ./opam-bootstrap.sh
 
 # ---

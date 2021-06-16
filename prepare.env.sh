@@ -26,7 +26,8 @@ echo "Belenios source code has been git cloned in [${BELENIOS_GIT_CLONE}]"
 # sed -i "s#opam init#opam init --reinit -i --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
 # sed -i "s#opam init#echo \$BELENIOS_SYSROOT \&\& opam init --verbose --reinit -i --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
 # sed -i "s#opam init#opam update -vv --debug \&\& echo \"BELENIOS_SYSROOT=[\$BELENIOS_SYSROOT]\" \&\& opam init -q --reinit -i --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
-sed -i "s#opam init#opam init --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
+
+# sed -i "s#opam init#opam init --disable-sandboxing#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh
 
 # inserting echo to locate folder where [opam-repository] is git cloned by opam-bootstrap.sh
 sed -i "s#cd opam-repository#cd opam-repository \&\& echo \"folder of opam repository =[\$(pwd)]\"#g" ${BELENIOS_GIT_CLONE}/opam-bootstrap.sh

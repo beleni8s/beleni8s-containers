@@ -1,6 +1,8 @@
 #!/bin/bash
 
 export OPS_HOME=$(pwd)
+ls -alh ./.env
+source ./.env
 # -- Build the minimal platform
 docker-compose -f docker-compose.build.yml up -d belenios_backend_minimal
 # docker-compose -f docker-compose.build.yml logs -f belenios_backend_minimal
