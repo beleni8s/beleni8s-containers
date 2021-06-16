@@ -218,7 +218,8 @@ jobs:
       # ---
       - save_cache:
           paths:
-            - ~/.belenios/opam-repository
+            - oci/builder/platform/minimal/belenios_sys_root/opam-repository
+            # - ~/.belenios/opam-repository
             # - /root/.belenios/opam-repository
           key: beleni8s-opam-repository-{{ .Branch }}-{{ checksum "oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh" }}
           when: always
