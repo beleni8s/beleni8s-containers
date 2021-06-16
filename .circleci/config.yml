@@ -134,7 +134,7 @@ jobs:
                     # --------------------
                     ./prepare.env.sh
       - run: # print the name of the branch we're on
-          name: "Insert in opam-bootstrap.sh required code to support caching opam-repository git repo"
+          name: "Insert in [opam-bootstrap.sh] required code to support caching opam-repository git repo"
           command: |
                     cd /home/circleci/project
                     export OPAM_BOOTSTRAP_SH_PATH="$(pwd)/oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh"
@@ -207,12 +207,12 @@ jobs:
             - beleni8s-opam-repository
 
       - run: # print the name of the branch we're on
-          name: "Prepare Docker build context of the belenios-tool"
+          name: "git clone the opam-repository"
           no_output_timeout: 30m
           command: |
                     pwd
                     ls -allh
-                    ./prepare-belenios-tool-docker-build-context.sh
+                    git clone https://github.com/ocaml/opam-repository.git $(pwd)/oci/builder/platform/minimal/belenios_sys_root/opam-repository || true
       # ---
       # cache for the opam-repository which is hugeeee (omg)
       # ---
@@ -228,7 +228,7 @@ jobs:
           command: |
                     pwd
                     ls -allh
-                    docker-compose -f docker-compose.build.yml up -d belenios_tool_runtime
+                    ./build-belenios-tool-runner.sh
                     docker images
                     docker ps -a
 
