@@ -134,13 +134,48 @@ jobs:
                     # --------------------
                     ./prepare.env.sh
       - run: # print the name of the branch we're on
-          name: "Replace opam-bootstrap.sh with modified one for tests"
+          name: "Insert in opam-bootstrap.sh required code to support caching opam-repository git repo"
           command: |
-                    echo "Skipped for now"
-                    exit 0
                     cd /home/circleci/project
-                    pwd
-                    ls -allh
+                    export OPAM_BOOTSTRAP_SH_PATH="$(pwd)/oci/builder/platform/minimal/belenios_sys_root/opam-bootstrap.sh"
+                    # --- Insert code for Pipeline chacing of opem repository
+                    echo "=-= =-= ===================================================== =-= =-="
+                    echo "=-= =-=  Insert code for Pipeline caching of opam repository  =-= =-="
+                    echo "=-= =-= ===================================================== =-= =-="
+
+                    export INSERTION_LINE_NB=$(cat -n ${OPAM_BOOTSTRAP_SH_PATH} | grep 'git clone https://github.com/ocaml/opam-repository.git' | awk '{print $1}')
+
+                    echo "INSERTION_LINE_NB=[${INSERTION_LINE_NB}]"
+                    export INSERTION_LINE_NB=$((${INSERTION_LINE_NB} - 1))
+                    echo "decremented INSERTION_LINE_NB=[${INSERTION_LINE_NB}]"
+
+                    export TOTAL_LINE_NUMBER=$(cat -n ${OPAM_BOOTSTRAP_SH_PATH} | tail -n 1 | awk '{print $1}')
+                    echo "TOTAL_LINE_NUMBER=[${TOTAL_LINE_NUMBER}]"
+
+                    export TAIL_AFTER_INSERTION_LINE_NB=$((${TOTAL_LINE_NUMBER} - (${INSERTION_LINE_NB} + 1)))
+                    echo "TAIL_AFTER_INSERTION_LINE_NB=[${TAIL_AFTER_INSERTION_LINE_NB}]"
+
+                    # before insertion
+                    cat ${OPAM_BOOTSTRAP_SH_PATH} | head -n ${INSERTION_LINE_NB} | tee ./regenerated.opam-bootstrap.sh
+                    # then insertion
+                    echo "if [ -d \$(pwd)/opam-repository/ ]; then" | tee -a ./regenerated.opam-bootstrap.sh
+                    echo "  cd opam-repository/ && git pull" | tee -a ./regenerated.opam-bootstrap.sh
+                    echo "else" | tee -a ./regenerated.opam-bootstrap.sh
+                    echo "  git clone https://github.com/ocaml/opam-repository.git" | tee -a ./regenerated.opam-bootstrap.sh
+                    echo "  cd opam-repository/" | tee -a ./regenerated.opam-bootstrap.sh
+                    echo "fi;" | tee -a ./regenerated.opam-bootstrap.sh
+                    # after insertion
+                    cat ${OPAM_BOOTSTRAP_SH_PATH} | tail -n ${TAIL_AFTER_INSERTION_LINE_NB} | tee -a ./regenerated.opam-bootstrap.sh
+
+                    echo "=-= =-= ===================================================== =-= =-="
+                    echo "=-= =-= ===================++++++++++++====================== =-= =-="
+                    echo "=-= =-= ===================================================== =-= =-="
+                    cat ./regenerated.opam-bootstrap.sh | tee ${OPAM_BOOTSTRAP_SH_PATH}
+                    rm ./regenerated.opam-bootstrap.sh
+                    echo "=-= =-= ===================================================== =-= =-="
+                    echo "=-= =-= ===================++++++++++++====================== =-= =-="
+                    echo "=-= =-= ===================================================== =-= =-="
+
 
       - run: # print the name of the branch we're on
           name: "Check content of [opam-bootstrap.sh]"
